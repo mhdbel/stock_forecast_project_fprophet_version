@@ -1,0 +1,7 @@
+google-cloud-bigquery
+yfinance
+python-decouple
+pandas
+numpy
+fbprophet
+plotly
