@@ -1,16 +1,21 @@
 # plotting/forecast_plot.py
+import os
 from fbprophet.plot import plot_plotly
-from plotly.offline import plot
 import logging
 
 def plot_prophet_forecast(model, forecast):
     """
-    Plots the forecast using Plotly offline mode.
+    Plots the forecast and saves it as an HTML file.
     """
-    logging.info("Plotting Facebook Prophet forecast...")
+    logging.info("Generating and saving Facebook Prophet forecast plot...")
     try:
         fig = plot_plotly(model, forecast)
-        plot(fig)  # Automatically opens the plot in the default web browser.
-        logging.info("Plot successfully generated.")
+
+        file_path = 'stock_forecast_project/plotting/forecast_plot.html'
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+
+        fig.write_html(file_path)
+        logging.info(f"Plot successfully saved to {file_path}")
     except Exception as e:
-        logging.error(f"Error during plotting the forecast: {e}")
+        logging.error(f"Error during generating or saving the forecast plot: {e}")

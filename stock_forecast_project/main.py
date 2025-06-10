@@ -26,8 +26,13 @@ def main():
         model = create_prophet_model(stock_data)
         
         # Step 3: Create future date DataFrame and forecast.
-        future_data = model.make_future_dataframe(periods=FORECAST_PERIODS)
-        logging.info(f"Future DataFrame created with periods: {FORECAST_PERIODS}")
+        try:
+            future_data = model.make_future_dataframe(periods=FORECAST_PERIODS)
+            logging.info(f"Future DataFrame created with periods: {FORECAST_PERIODS}")
+        except Exception as e:
+            logging.error(f"Error creating future dataframe for {TICKER_SYMBOL}, possibly due to FORECAST_PERIODS configuration: {e}")
+            return
+
         forecast = forecast_prophet_model(model, future_data)
         
         # Step 4: Plot the forecast.

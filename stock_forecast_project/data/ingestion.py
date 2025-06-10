@@ -3,6 +3,7 @@ import time
 import pandas as pd
 import yfinance as yf
 import logging
+import os
 from utils.logging_utils import log_dataframe_shape
 
 def download_stock_data(ticker, start_date, end_date, retries=3, delay=5):
